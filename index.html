@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+	<title>index_canvas</title>
+	<link rel="stylesheet" href="./css/index_canvas.css">
+</head>
+
+<body>
+
+	<!--[if IE]>
+		<script type="text/javascript" src="./libs/chrome-frame/CFInstall.min.js"></script>
+		<div id="prompt"></div>
+		<script> window.attachEvent("onload", function() { CFInstall.check({ mode: "overlay", node: "prompt" }); }); </script>
+	<![endif]-->
+
+	<div class="loading">
+		<div class="lds-spinner loading_core" style="width:100%;height:100%">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<!-- <img src="./images/loading.gif" alt="" class="loading_core"> -->
+	</div>
+	<div class="box_far">
+		<div class="header">
+			<div class="header_refresh">
+				<div>
+					<img src="./images/refresh.png" alt="">
+				</div>
+				<span>刷新</span>
+			</div>
+			<div class="header_SG">
+				<!-- 精确搜索 -->
+				<input type="text" id="search_SG">
+				<button id="search_SG_button">搜索SG分布</button>
+				<button class="reset_SG" id="reset_SG">重置</button>
+			</div>
+			<div class="header_volumeLabel">
+				<!-- 模糊匹配 -->
+				<input type="text" id="search_volumeLabel">
+				<button id="search_volumeLabel_button">显示卷分布</button>
+				<button class="reset_vol" id="reset_vol">重置</button>
+			</div>
+			<!-- 下拉菜单 -->
+			<div class="drop-down">
+				<select>
+					<!-- select下拉菜单的坑 -->
+				</select>
+			</div>
+			<!-- 转成excel -->
+			<div class="toexcel">
+				<div>导出excel</div> 
+			</div>
+			<div class="suolve-far">
+				<div class="header_map">
+					<img src="./images/suoluetu.png" alt="">
+					<span>缩略图</span>
+				</div>
+				<div class="map_nav isshow">
+					<div class="map_nav_child">
+						<div class="pointer cube"></div>
+						<canvas id="map_line" class="pointer_main"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 中间大的内容区域 -->
+		<div class="container">
+			<div class="container_left" onselectstart="return false;" unselectable="on">
+				<ul>
+					<script type="text/html" id="infoTitle">
+						{{ each list item i }}
+						<li class="{{ item.name === currentTitle ? 'current' : ''}}"
+							data-name="{{ item.name }}">
+							{{ item.cName }}
+						</li>
+						{{ /each }}
+					</script>
+				</ul>
+			</div>
+
+			<div class="container_right">
+				<div class="father">
+					<div class="col">
+					<ul>
+						<li></li>
+						<li></li>
+					</ul>
+						<canvas id="col"></canvas>
+					</div>
+					<div class="right">
+						<div class="row">
+							<canvas id="row"></canvas>
+						</div>
+						<div class="content ">
+							<canvas id="canvasId"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/html" id="dropDown">
+		{{ each list as item,index }}
+			<option value="{{ item.name }}" {{ index === 0 ? 'selected':'' }} >{{ item.name }}</option>
+		{{/each}}
+	</script>
+	<script src="./libs/jquery/jquery-1.12.4.min.js"></script>
+	<script src="./libs/mock/mock.js"></script>
+	<script src="./js/data.js"></script>
+	<script src="./libs/art-template/template-web.js"></script>
+	<script>
+		window.onload = function () {
+
+			// 先引入功能代码
+			var script = document.createElement('script')
+
+			script.type = 'text/javascript'
+			
+			script.src = './js/index_canvas.js'
+
+			document.querySelector('head').appendChild(script)
+
+			// 最后是导出excel的插件
+			var JsonExportExcelScript = document.createElement('script')
+
+			JsonExportExcelScript.type = 'text/javascript'
+
+			JsonExportExcelScript.src = './libs/JsonExportExcel/dist/JsonExportExcel.min.js'
+
+			document.querySelector('head').appendChild(JsonExportExcelScript)
+		}
+	</script>
+</body>
+</html>
